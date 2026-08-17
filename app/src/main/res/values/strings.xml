@@ -37,4 +37,54 @@
     <string name="home_account_mask">•••• %1$s</string>
     <!-- Spoken form for the account card, per CLAUDE.md §9's contentDescription rule. -->
     <string name="home_account_a11y">%1$s — %2$s تومان</string>
+
+    <!-- ==== Add / edit account (Dastranj Add Account Screen.dc.html) ==== -->
+    <string name="add_account_title">افزودن حساب بانکی</string>
+    <string name="edit_account_title">ویرایش حساب</string>
+
+    <string name="add_account_bank_label">بانک</string>
+    <string name="add_account_bank_placeholder">انتخاب بانک</string>
+    <string name="add_account_bank_sheet_title">انتخاب بانک</string>
+    <string name="add_account_bank_search_hint">جست‌وجوی بانک</string>
+    <string name="add_account_bank_none">بانکی پیدا نشد</string>
+    <string name="add_account_bank_logo_a11y">لوگوی %1$s</string>
+
+    <string name="add_account_title_label">عنوان حساب</string>
+    <string name="add_account_title_placeholder">نام حساب</string>
+    <!-- Pre-fills the title when a bank is picked: «حساب ملت». -->
+    <string name="add_account_title_prefill">حساب %1$s</string>
+    <!-- «سایر» has no bank name to borrow, so it gets a neutral default. -->
+    <string name="add_account_title_prefill_generic">حساب من</string>
+
+    <string name="add_account_last4_label">چهار رقم آخر کارت</string>
+    <string name="add_account_last4_error">هر چهار رقم را وارد کنید — مثلاً ۸۲۴۱.</string>
+
+    <string name="add_account_balance_label">موجودی فعلی (اختیاری)</string>
+    <string name="edit_account_balance_label">موجودی فعلی</string>
+    <string name="add_account_balance_hint">اگر الان نمی‌دانید، بعداً قابل ویرایش است.</string>
+    <string name="edit_account_balance_hint">تغییر این عدد، تراکنش‌های ثبت‌شده را تغییر نمی‌دهد.</string>
+
+    <string name="add_account_theme_label">تم کارت</string>
+    <string name="add_account_theme_a11y">تم کارت %1$s</string>
+    <string name="add_account_theme_white">سفید</string>
+    <string name="add_account_theme_green">سبز روشن</string>
+    <string name="add_account_theme_gold">طلایی روشن</string>
+    <string name="add_account_theme_ink">جوهری</string>
+
+    <string name="add_account_save">ذخیرهٔ حساب</string>
+    <string name="edit_account_save">ذخیرهٔ تغییرات</string>
+    <string name="add_account_skip">فعلاً رد شو</string>
+    <string name="add_account_skip_toast">می‌توانید بعداً حساب اضافه کنید</string>
+    <string name="edit_account_archive_toast">حساب بایگانی شد</string>
+    <string name="add_account_onboarding_step">گام ۳ از ۴</string>
+
+    <!-- Title suggestion chips. -->
+    <string name="add_account_chip_salary">حقوق</string>
+    <string name="add_account_chip_savings">پس‌انداز</string>
+    <string name="add_account_chip_daily">روزمره</string>
+    <string name="add_account_chip_main_card">کارت اصلی</string>
+
+    <!-- ==== Numeric keypad (shared by the add screens) ==== -->
+    <string name="keypad_separator_a11y">جداکننده</string>
+    <string name="keypad_delete_a11y">حذف</string>
 </resources>

@@ -34,6 +34,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ir.dastranj.app.ui.account.AddAccountScreen
 import ir.dastranj.app.ui.components.BottomTabBar
 import ir.dastranj.app.ui.navigation.Route
 import ir.dastranj.app.ui.navigation.TopLevelTab
@@ -144,7 +145,14 @@ private fun DastranjNavHost(
         composable<Route.More> { PlaceholderScreen("More") }
 
         composable<Route.AddTransaction> { PlaceholderScreen("AddTransaction") }
-        composable<Route.AddAccount> { PlaceholderScreen("AddAccount") }
+        composable<Route.AddAccount> {
+            AddAccountScreen(
+                onClose = { navController.popBackStack() },
+                // The new account is already in the database, so Home picks it up from its own
+                // Flow; this only has to dismiss the screen.
+                onSaved = { navController.popBackStack() },
+            )
+        }
         composable<Route.AddBudget> { PlaceholderScreen("AddBudget") }
     }
 }

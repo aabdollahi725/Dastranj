@@ -74,12 +74,16 @@ data class BudgetEntity(
     /**
      * When true, this budget is copied forward into the next month.
      *
+     * Defaults to **false**: repeating is opt-in per budget rather than opt-out. A budget the user
+     * set for one month is a statement about that month, and silently recreating it in the next one
+     * would put a limit in front of them that they never asked for.
+     *
      * The copy is created lazily when the next month is first opened, not by a background job — the
      * app has no scheduler, and a budget for a month the user has not reached yet has nothing to
      * measure.
      */
     @ColumnInfo(name = "auto_repeat")
-    val autoRepeat: Boolean = true,
+    val autoRepeat: Boolean = false,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long,
