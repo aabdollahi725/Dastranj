@@ -87,4 +87,52 @@
     <!-- ==== Numeric keypad (shared by the add screens) ==== -->
     <string name="keypad_separator_a11y">جداکننده</string>
     <string name="keypad_delete_a11y">حذف</string>
+
+    <!-- ==== Add transaction (Dastranj Add Transaction Screen.dc.html) ==== -->
+    <string name="add_transaction_title">افزودن تراکنش</string>
+    <string name="tx_type_expense">هزینه</string>
+    <string name="tx_type_income">درآمد</string>
+    <string name="tx_type_transfer">انتقال</string>
+
+    <string name="tx_category_hint">یک دسته انتخاب کنید</string>
+    <string name="tx_category_other">سایر</string>
+    <string name="tx_submit">ثبت</string>
+
+    <!-- Meta chips under the category grid. -->
+    <string name="tx_meta_account">حساب</string>
+    <string name="tx_meta_date">تاریخ</string>
+    <string name="tx_meta_note">یادداشت</string>
+    <string name="tx_meta_attachment">رسید</string>
+    <string name="tx_meta_attachment_a11y">پیوست رسید</string>
+    <string name="tx_meta_attachment_one">۱ رسید</string>
+
+    <!-- Transfer legs. -->
+    <string name="tx_transfer_from">از حساب</string>
+    <string name="tx_transfer_to">به حساب</string>
+    <string name="tx_transfer_swap">جابه‌جایی مبدأ و مقصد</string>
+
+    <!-- Sheet titles. -->
+    <string name="tx_sheet_category">انتخاب دسته</string>
+    <string name="tx_sheet_account">انتخاب حساب</string>
+    <string name="tx_sheet_from">از کدام حساب</string>
+    <string name="tx_sheet_to">به کدام حساب</string>
+    <string name="tx_sheet_date">تاریخ تراکنش</string>
+    <string name="tx_sheet_note">یادداشت</string>
+    <string name="tx_sheet_attachment">پیوست رسید</string>
+
+    <!-- Date options. -->
+    <string name="tx_date_today">امروز</string>
+    <string name="tx_date_yesterday">دیروز</string>
+    <string name="tx_date_pick">انتخاب از تقویم</string>
+    <!-- «امروز — ۱۹ مرداد» -->
+    <string name="tx_date_relative_with_day">%1$s — %2$s</string>
+    <!-- «۱۷ مرداد ۱۴۰۵» -->
+    <string name="tx_date_full">%1$s %2$s %3$s</string>
+
+    <!-- Attachment options. -->
+    <string name="tx_attach_camera">گرفتن عکس با دوربین</string>
+    <string name="tx_attach_gallery">انتخاب از گالری</string>
+    <string name="tx_note_new">نوشتن یادداشت تازه</string>
+
+    <string name="tx_amount_a11y">مبلغ</string>
 </resources>

@@ -32,7 +32,13 @@ import androidx.room.PrimaryKey
         ),
     ],
     indices = [
-        Index(value = ["merchant_key"], unique = true),
+        // Unique on the *pair*, not on the merchant alone. One row per (merchant, category) means
+        // a merchant accumulates a tally across the categories it has been filed under, which is
+        // what lets the highest count win. A unique index on merchant_key alone would allow only
+        // one row, and then the most recent choice would always win — so a single mis-tap would
+        // permanently re-point a merchant the user had categorised consistently for months.
+        Index(value = ["merchant_key", "category_id"], unique = true),
+        Index(value = ["merchant_key"]),
         Index(value = ["category_id"]),
     ],
 )

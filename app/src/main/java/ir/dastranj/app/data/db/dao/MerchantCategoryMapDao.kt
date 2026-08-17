@@ -25,23 +25,34 @@ interface MerchantCategoryMapDao {
     )
     suspend fun suggestCategoryId(merchantKey: String): Long?
 
-    @Query("SELECT * FROM merchant_category_map WHERE merchant_key = :merchantKey")
-    suspend fun getByKey(merchantKey: String): MerchantCategoryMapEntity?
+    /** Every category this merchant has been filed under, strongest first. */
+    @Query(
+        """
+        SELECT * FROM merchant_category_map
+        WHERE merchant_key = :merchantKey
+        ORDER BY hit_count DESC, last_used_at DESC
+        """
+    )
+    suspend fun getByKey(merchantKey: String): List<MerchantCategoryMapEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertIgnoringDuplicate(entry: MerchantCategoryMapEntity): Long
 
     /**
-     * Records one more confirmation of an existing pairing.
+     * Records one more confirmation of an existing (merchant, category) pairing.
      *
-     * Written as an UPDATE rather than a read-modify-write so two rapid entries cannot both read the
-     * same count and each write back the same incremented value, losing one.
+     * Note it matches on both columns and does **not** reassign `category_id`: the pair is the
+     * identity of the row, so confirming «کافه لمیز → تفریح» must increment that pairing's own
+     * tally rather than overwrite whatever category the merchant last had.
+     *
+     * Written as an UPDATE rather than a read-modify-write so two rapid entries cannot both read
+     * the same count and each write back the same incremented value, losing one.
      */
     @Query(
         """
         UPDATE merchant_category_map
-        SET hit_count = hit_count + 1, last_used_at = :nowMillis, category_id = :categoryId
-        WHERE merchant_key = :merchantKey
+        SET hit_count = hit_count + 1, last_used_at = :nowMillis
+        WHERE merchant_key = :merchantKey AND category_id = :categoryId
         """
     )
     suspend fun recordHit(merchantKey: String, categoryId: Long, nowMillis: Long)

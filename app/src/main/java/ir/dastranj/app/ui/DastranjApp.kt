@@ -36,6 +36,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.dastranj.app.ui.account.AddAccountScreen
 import ir.dastranj.app.ui.components.BottomTabBar
+import ir.dastranj.app.ui.transaction.AddTransactionScreen
 import ir.dastranj.app.ui.navigation.Route
 import ir.dastranj.app.ui.navigation.TopLevelTab
 import ir.dastranj.app.ui.theme.Dastranj
@@ -144,7 +145,12 @@ private fun DastranjNavHost(
         composable<Route.Report> { PlaceholderScreen("Report") }
         composable<Route.More> { PlaceholderScreen("More") }
 
-        composable<Route.AddTransaction> { PlaceholderScreen("AddTransaction") }
+        composable<Route.AddTransaction> {
+            AddTransactionScreen(
+                onClose = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() },
+            )
+        }
         composable<Route.AddAccount> {
             AddAccountScreen(
                 onClose = { navController.popBackStack() },
