@@ -1,0 +1,3 @@
+Room writes the exported schema JSON here (see room.schemaLocation in app/build.gradle.kts).
+These files are checked in deliberately: they are the reference a future migration is verified
+against, and Room's migration tests read them from androidTest assets.

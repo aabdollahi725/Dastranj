@@ -69,6 +69,17 @@ android {
             isReturnDefaultValues = true
         }
     }
+
+    sourceSets {
+        // Makes the exported schema available to Room's migration tests.
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
+}
+
+ksp {
+    // DastranjDatabase sets exportSchema = true; this is where the JSON lands. The directory is
+    // checked in, because without the previous schema a migration cannot be verified.
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
