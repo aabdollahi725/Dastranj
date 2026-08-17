@@ -33,7 +33,14 @@ class AddTransactionViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AddTransactionUiState())
     val uiState: StateFlow<AddTransactionUiState> = _uiState.asStateFlow()
 
+    /** Recent notes offered by the note sheet. Loaded once; they change rarely. */
+    private val _recentNotes = MutableStateFlow<List<String>>(emptyList())
+    val recentNotes: StateFlow<List<String>> = _recentNotes.asStateFlow()
+
     init {
+        viewModelScope.launch {
+            _recentNotes.value = transactionRepository.recentNotes()
+        }
         viewModelScope.launch {
             combine(
                 categoryRepository.observeByKind(CategoryKind.EXPENSE),

@@ -217,4 +217,23 @@
     <!-- «مرداد — ۲٬۳۲۰٬۰۰۰ تومان» -->
     <string name="report_month_a11y">%1$s — %2$s</string>
     <string name="report_month_amount_a11y">%1$s تومان</string>
+
+    <!-- ==== More (Dastranj More Screen.dc.html) ====
+      Every row is a v2 feature. Per PRD §5.3 these keep a «به‌زودی» badge rather than being
+      removed: unlike the dead controls elsewhere, they say something true about what is coming.
+      The design's live count badges («۱ قسط سررسید گذشته») belong to features that do not exist
+      in v1, so they are replaced by this uniform badge rather than wired to invented numbers.
+    -->
+    <string name="more_coming_soon">به‌زودی</string>
+
+    <string name="more_piggy_title">قلک</string>
+    <string name="more_piggy_sub">دسترنج خود را پس‌انداز کنید</string>
+    <string name="more_goals_title">اهداف مالی</string>
+    <string name="more_goals_sub">اهداف مالی خود را زیر نظر بگیرید</string>
+    <string name="more_debts_title">بدهی و طلب</string>
+    <string name="more_debts_sub">حساب حساب، کاکا برادر</string>
+    <string name="more_loans_title">وام‌ها</string>
+    <string name="more_loans_sub">ثبت و یادآوری اقساط و وام‌ها</string>
+    <string name="more_cheques_title">چک‌ها</string>
+    <string name="more_cheques_sub">ثبت و یادآوری چک‌های بانکی</string>
 </resources>

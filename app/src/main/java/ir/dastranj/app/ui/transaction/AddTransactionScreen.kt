@@ -77,6 +77,7 @@ fun AddTransactionScreen(
     viewModel: AddTransactionViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val recentNotes by viewModel.recentNotes.collectAsStateWithLifecycle()
 
     // Side effect, so it belongs here rather than in the composition body.
     LaunchedEffect(state.saved) {
@@ -138,6 +139,16 @@ fun AddTransactionScreen(
                 onSubmit = viewModel::submit,
             )
         }
+
+        TransactionSheetHost(
+            state = state,
+            onSelectCategory = viewModel::selectCategory,
+            onSelectAccount = viewModel::selectAccount,
+            onSelectTransferTo = viewModel::selectTransferTo,
+            onSelectNote = viewModel::setNote,
+            onDismiss = viewModel::closeSheet,
+            recentNotes = recentNotes,
+        )
 
         AnimatedVisibility(
             visible = state.keypadOpen && state.openSheet == null,

@@ -38,6 +38,8 @@ import ir.dastranj.app.ui.account.AddAccountScreen
 import ir.dastranj.app.ui.budget.AddBudgetScreen
 import ir.dastranj.app.ui.budget.BudgetScreen
 import ir.dastranj.app.ui.components.BottomTabBar
+import ir.dastranj.app.ui.more.MoreScreen
+import ir.dastranj.app.ui.report.ReportScreen
 import ir.dastranj.app.ui.home.HomeScreen
 import ir.dastranj.app.ui.transaction.AddTransactionScreen
 import ir.dastranj.app.ui.navigation.Route
@@ -149,8 +151,8 @@ private fun DastranjNavHost(
         composable<Route.Budget> {
             BudgetScreen(onAddBudget = { navController.navigate(Route.AddBudget) })
         }
-        composable<Route.Report> { PlaceholderScreen("Report") }
-        composable<Route.More> { PlaceholderScreen("More") }
+        composable<Route.Report> { ReportScreen() }
+        composable<Route.More> { MoreScreen() }
 
         composable<Route.AddTransaction> {
             AddTransactionScreen(
@@ -172,16 +174,6 @@ private fun DastranjNavHost(
                 onSaved = { navController.popBackStack() },
             )
         }
-    }
-}
-
-/**
- * Temporary. Each phase replaces one of these with the real screen.
- */
-@Composable
-private fun PlaceholderScreen(name: String) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(name, style = Dastranj.type.body, color = Dastranj.colors.muted)
     }
 }
 
