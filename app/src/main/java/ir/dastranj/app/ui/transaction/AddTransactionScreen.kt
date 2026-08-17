@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -55,6 +56,7 @@ import ir.dastranj.app.ui.components.NumericKeypad
 import ir.dastranj.app.ui.components.pressScaleClickable
 import ir.dastranj.app.ui.theme.Dastranj
 import ir.dastranj.app.ui.theme.Ink0
+import ir.dastranj.app.ui.util.HexColor
 import ir.dastranj.app.ui.util.IconRegistry
 
 /**
@@ -581,12 +583,12 @@ private fun SubmitBar(enabled: Boolean, onSubmit: () -> Unit) {
                 .weight(1f)
                 .height(52.dp)
                 .clip(CircleShape)
-                .then(
-                    if (enabled) {
-                        Modifier.background(Dastranj.colors.brandGradient)
-                    } else {
-                        Modifier.background(Dastranj.colors.sunken)
-                    },
+                // Enabled ships the brand gradient — this screen's one use of it, per the DS
+                // guide's one-gradient-per-screen cap. Disabled drops to a flat sunken surface
+                // rather than a faded gradient, so "not ready yet" reads as a different state
+                // rather than a dimmer version of the same one.
+                .background(
+                    if (enabled) Dastranj.colors.brandGradient else SolidColor(Dastranj.colors.sunken),
                 )
                 .pressScaleClickable(onClick = onSubmit, enabled = enabled),
             contentAlignment = Alignment.Center,
@@ -604,5 +606,14 @@ private fun SubmitBar(enabled: Boolean, onSubmit: () -> Unit) {
 /** Stable key for the «سایر» tile, which has no category id. */
 private const val OTHER_TILE_KEY = -1L
 
+/**
+ * A stored colour string as a [Color], never throwing.
+ *
+ * Category colours are data, and a malformed one must not take down the grid while it renders —
+ * see [HexColor] for the reasoning.
+ */
 private fun parseHexColor(hex: String): Color =
-    Color(android.graphics.Color.parseColor(hex))
+    // Compose's Color(Long) overload reads the low 32 bits as 0xAARRGGBB, which is the shape
+    // HexColor already returns. The ULong constructor takes Compose's own packed representation
+    // instead, so it must not be used here.
+    Color(HexColor.parseOr(hex, HexColor.FALLBACK))

@@ -58,6 +58,7 @@ import ir.dastranj.app.ui.components.NumericKeypad
 import ir.dastranj.app.ui.components.fieldSurface
 import ir.dastranj.app.ui.components.pressScaleClickable
 import ir.dastranj.app.ui.theme.Dastranj
+import ir.dastranj.app.ui.util.HexColor
 import ir.dastranj.app.ui.util.PersianNumbers
 
 /**
@@ -573,7 +574,8 @@ private fun BankPickerSheet(
 
 @Composable
 private fun BankRow(bank: Bank, selected: Boolean, onClick: () -> Unit) {
-    val brand = Color(android.graphics.Color.parseColor(bank.brandColorHex))
+    // Never throws on a malformed stored value — see HexColor.
+    val brand = Color(HexColor.parseOr(bank.brandColorHex, HexColor.FALLBACK))
 
     Row(
         modifier = Modifier
