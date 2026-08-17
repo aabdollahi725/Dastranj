@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pre-Compose window colours only. The app's real palette is ui/theme/Color.kt. -->
+<resources>
+    <!-- --bg-app -->
+    <color name="window_background">#F1F2F3</color>
+    <!-- --ink-900, the launcher icon ground -->
+    <color name="ic_launcher_background">#1C1D1F</color>
+</resources>

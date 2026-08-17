@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PRD §12: cleartextTrafficPermitted="false".
+  Dastranj is fully offline and sends no financial data anywhere (CLAUDE.md §2); this config
+  exists so that any accidental network call fails loudly instead of going out in the clear.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

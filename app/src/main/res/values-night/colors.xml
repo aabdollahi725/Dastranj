@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark equivalent of the window background, so a dark-theme cold start does not flash light. -->
+<resources>
+    <color name="window_background">#1C1D1F</color>
+</resources>

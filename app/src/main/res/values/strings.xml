@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  CLAUDE.md §2: no user-visible string is hard-coded in Kotlin. Every string in the product lives
+  here, in Farsi, even though the app is single-language (PRD §13.3).
+
+  Text comes from the design files, which PRD §0 makes the final authority on in-page copy.
+
+  Note on the ZWNJ (نیم‌فاصله, U+200C): it is present in strings like «حساب‌های بانکی» and
+  «بودجه‌بندی». The DS guide calls a wrong ZWNJ the single most visible typographic error in a Farsi
+  product, so these must not be "cleaned up" into plain spaces.
+-->
+<resources>
+    <string name="app_name">دسترنج</string>
+
+    <!-- ==== Bottom navigation and shell (Dastranj Home.dc.html) ==== -->
+    <string name="tab_home">خانه</string>
+    <string name="tab_budget">بودجه</string>
+    <string name="tab_report">گزارش</string>
+    <string name="tab_more">بیشتر</string>
+    <string name="action_add_transaction">افزودن تراکنش</string>
+
+    <!-- ==== Shared ==== -->
+    <string name="currency_unit">تومان</string>
+    <string name="action_close">بستن</string>
+    <string name="action_back">بازگشت</string>
+    <string name="action_save">ذخیره</string>
+    <string name="action_submit">ثبت</string>
+
+    <!-- ==== Home (Dastranj Home Screen.dc.html) ==== -->
+    <string name="home_accounts_title">حساب‌های بانکی</string>
+    <string name="home_add_account">افزودن حساب</string>
+    <string name="home_wallet_label">کیف نقدی</string>
+    <string name="home_empty_title">هنوز حسابی اضافه نکرده‌اید</string>
+    <string name="home_empty_body">با افزودن حساب بانکی، موجودی و تراکنش‌هایتان همین‌جا جمع می‌شود.</string>
+    <string name="home_empty_cta">افزودن اولین حساب</string>
+    <!-- Card number mask. The design renders "•••• ۴۵۵۶". -->
+    <string name="home_account_mask">•••• %1$s</string>
+    <!-- Spoken form for the account card, per CLAUDE.md §9's contentDescription rule. -->
+    <string name="home_account_a11y">%1$s — %2$s تومان</string>
+</resources>

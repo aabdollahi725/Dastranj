@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A minimal Activity theme only. All real theming is the Compose token layer in ui/theme, so this
+  exists to set the pre-Compose window background and avoid a white flash on a dark-theme launch.
+-->
+<resources>
+    <style name="Theme.Dastranj" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- PRD §13.3: the app is RTL everywhere. -->
+        <item name="android:layoutDirection">rtl</item>
+    </style>
+</resources>
