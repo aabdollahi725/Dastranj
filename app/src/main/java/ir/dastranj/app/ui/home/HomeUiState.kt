@@ -14,6 +14,8 @@ data class AccountCard(
     val maskedLabel: String,
     /** Grouped Persian toman figure, without the unit. */
     val balanceText: String,
+    /** The same figure as a number, which the count-up animation needs to interpolate. */
+    val balanceToman: Long,
     val cardTheme: String,
     /** Spoken form: «بانک ملت — ۸۴٬۲۰۰٬۰۰۰ تومان». */
     val contentDescription: String,

@@ -24,6 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +43,7 @@ import androidx.compose.ui.unit.em
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ir.dastranj.app.R
+import ir.dastranj.app.ui.components.CountUpAmount
 import ir.dastranj.app.ui.components.dashedBorder
 import ir.dastranj.app.ui.components.pressScaleClickable
 import ir.dastranj.app.ui.theme.Dastranj
@@ -67,6 +71,14 @@ fun HomeScreen(
         viewModel.start(cashLabel = cashLabel, currencyUnit = currencyUnit)
     }
 
+    // Which cards have already counted up.
+    //
+    // Hoisted to the screen, not held inside each card, for two reasons: a `remember` inside a
+    // LazyRow item is discarded on recycling, so scrolling away and back would replay the count;
+    // and `rememberSaveable` carries the set across configuration changes, so a rotation does not
+    // re-animate either. The DS rule is once per card, full stop.
+    var animatedIds by rememberSaveable { mutableStateOf(longArrayOf()) }
+
     Column(Modifier.fillMaxWidth()) {
         SectionHeader()
 
@@ -74,6 +86,10 @@ fun HomeScreen(
             state.showAccountRow -> AccountRow(
                 accounts = state.accounts,
                 onAddAccount = onAddAccount,
+                hasAnimated = { id -> id in animatedIds },
+                onAnimated = { id ->
+                    if (id !in animatedIds) animatedIds = animatedIds + id
+                },
             )
             state.showEmptyState -> EmptyAccounts(onAddAccount = onAddAccount)
             // Loading: draw nothing. The first emission is a local database read, so a spinner
@@ -110,6 +126,8 @@ private fun SectionHeader() {
 private fun AccountRow(
     accounts: List<AccountCard>,
     onAddAccount: () -> Unit,
+    hasAnimated: (Long) -> Boolean,
+    onAnimated: (Long) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -122,7 +140,11 @@ private fun AccountRow(
         modifier = Modifier.fillMaxWidth(),
     ) {
         itemsIndexed(accounts, key = { _, account -> account.id }) { _, account ->
-            AccountCardView(account)
+            AccountCardView(
+                account = account,
+                animate = !hasAnimated(account.id),
+                onAnimated = { onAnimated(account.id) },
+            )
         }
         item(key = ADD_CARD_KEY) {
             AddAccountCard(onClick = onAddAccount)
@@ -131,7 +153,11 @@ private fun AccountRow(
 }
 
 @Composable
-private fun AccountCardView(account: AccountCard) {
+private fun AccountCardView(
+    account: AccountCard,
+    animate: Boolean,
+    onAnimated: () -> Unit,
+) {
     val colors = Dastranj.colors
 
     Column(
@@ -195,11 +221,12 @@ private fun AccountCardView(account: AccountCard) {
             modifier = Modifier.padding(top = 18.dp, start = 2.dp),
             verticalAlignment = Alignment.Bottom,
         ) {
-            Text(
-                text = account.balanceText,
+            CountUpAmount(
+                targetToman = account.balanceToman,
+                animate = animate,
+                onAnimationFinished = onAnimated,
                 style = Dastranj.type.amount,
                 color = colors.title,
-                maxLines = 1,
             )
             Spacer(Modifier.width(6.dp))
             Text(

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.dastranj.app.data.repository.AccountRepository
+import ir.dastranj.app.ui.util.Money
+import ir.dastranj.app.ui.util.PersianNumbers
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -55,11 +57,13 @@ class HomeViewModel @Inject constructor(
                 _uiState.update {
                     HomeUiState(
                         accounts = accounts.map { account ->
-                            val balanceText = ir.dastranj.app.ui.util.PersianNumbers
-                                .formatRialAsToman(
-                                    account.currentBalanceRial,
-                                    site = "home.accountCard",
-                                )
+                            // Convert once, here, and carry both forms — CLAUDE.md §2 keeps the
+                            // rial → toman step at the display layer and out of every call site.
+                            val balanceToman = Money.rialToToman(
+                                account.currentBalanceRial,
+                                site = "home.accountCard",
+                            )
+                            val balanceText = PersianNumbers.formatGrouped(balanceToman)
                             AccountCard(
                                 id = account.id,
                                 title = account.title,
@@ -68,6 +72,7 @@ class HomeViewModel @Inject constructor(
                                     cashLabel = this.cashLabel,
                                 ),
                                 balanceText = balanceText,
+                                balanceToman = balanceToman,
                                 cardTheme = account.cardTheme,
                                 contentDescription = HomeCardFormatter.contentDescription(
                                     title = account.title,

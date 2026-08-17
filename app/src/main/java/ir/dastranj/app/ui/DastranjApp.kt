@@ -35,6 +35,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.dastranj.app.ui.account.AddAccountScreen
+import ir.dastranj.app.ui.budget.AddBudgetScreen
+import ir.dastranj.app.ui.budget.BudgetScreen
 import ir.dastranj.app.ui.components.BottomTabBar
 import ir.dastranj.app.ui.home.HomeScreen
 import ir.dastranj.app.ui.transaction.AddTransactionScreen
@@ -144,7 +146,9 @@ private fun DastranjNavHost(
         composable<Route.Home> {
             HomeScreen(onAddAccount = { navController.navigate(Route.AddAccount) })
         }
-        composable<Route.Budget> { PlaceholderScreen("Budget") }
+        composable<Route.Budget> {
+            BudgetScreen(onAddBudget = { navController.navigate(Route.AddBudget) })
+        }
         composable<Route.Report> { PlaceholderScreen("Report") }
         composable<Route.More> { PlaceholderScreen("More") }
 
@@ -162,7 +166,12 @@ private fun DastranjNavHost(
                 onSaved = { navController.popBackStack() },
             )
         }
-        composable<Route.AddBudget> { PlaceholderScreen("AddBudget") }
+        composable<Route.AddBudget> {
+            AddBudgetScreen(
+                onClose = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() },
+            )
+        }
     }
 }
 

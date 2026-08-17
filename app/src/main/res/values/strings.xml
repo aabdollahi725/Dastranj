@@ -135,4 +135,45 @@
     <string name="tx_note_new">نوشتن یادداشت تازه</string>
 
     <string name="tx_amount_a11y">مبلغ</string>
+
+    <!-- ==== Budget (Dastranj Budget Screen.dc.html) ==== -->
+    <string name="budget_prev_month">ماه پیش</string>
+    <string name="budget_next_month">ماه آینده</string>
+    <string name="budget_next_month_disabled">ماه آینده — در دسترس نیست</string>
+    <!-- «مرداد ۱۴۰۵» -->
+    <string name="budget_month_label">%1$s %2$s</string>
+    <!-- «از ۲٬۰۰۰٬۰۰۰» -->
+    <string name="budget_of_limit">از %1$s</string>
+
+    <!-- Progress cues. -->
+    <string name="budget_cue_normal">%1$s٪ مصرف شده</string>
+    <string name="budget_cue_warning">%1$s٪ — نزدیک سقف</string>
+    <string name="budget_cue_exceeded">%1$s٪ · %2$s تومان بیشتر</string>
+
+    <string name="budget_empty_title">هنوز بودجه‌ای تعیین نکرده‌اید</string>
+    <string name="budget_empty_cta">تعیین اولین بودجه</string>
+    <string name="budget_add">افزودن بودجه</string>
+
+    <!-- ==== Add budget (Dastranj Add Budget Screen.dc.html) ==== -->
+    <string name="add_budget_title">افزودن بودجه</string>
+    <string name="add_budget_category_label">دسته</string>
+    <string name="add_budget_category_placeholder">انتخاب دسته</string>
+    <string name="add_budget_amount_label">سقف ماهانه</string>
+    <string name="add_budget_threshold_label">هشدار در</string>
+    <string name="add_budget_repeat_label">تکرار در ماه‌های بعد</string>
+    <string name="add_budget_save">ذخیرهٔ بودجه</string>
+    <!-- «۸۰٪» -->
+    <string name="add_budget_percent">%1$s٪</string>
+
+    <!-- ==== Notifications (PRD §11) ==== -->
+    <string name="notification_channel_budget">هشدار بودجه</string>
+    <string name="notification_channel_budget_description">وقتی به سقف بودجه نزدیک می‌شوید یا از آن عبور می‌کنید.</string>
+    <!--
+      No amount appears in any notification: the shade and lock screen are readable by anyone
+      holding the phone. The category and the situation are enough.
+    -->
+    <string name="notification_budget_threshold_title">نزدیک سقف بودجه</string>
+    <string name="notification_budget_threshold_body">هزینه‌های «%1$s» به سقف بودجه نزدیک شده است.</string>
+    <string name="notification_budget_exceeded_title">از سقف بودجه گذشتید</string>
+    <string name="notification_budget_exceeded_body">هزینه‌های «%1$s» از سقف بودجهٔ این ماه بیشتر شده است.</string>
 </resources>

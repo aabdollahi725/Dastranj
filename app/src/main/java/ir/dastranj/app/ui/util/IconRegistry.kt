@@ -91,6 +91,7 @@ object IconRegistry {
         "target" to R.drawable.ic_target,
         "ticket" to R.drawable.ic_ticket,
         "trending-up" to R.drawable.ic_trending_up,
+        "triangle-alert" to R.drawable.ic_triangle_alert,
         "utensils" to R.drawable.ic_utensils,
         "wallet" to R.drawable.ic_wallet,
         "wand-sparkles" to R.drawable.ic_wand_sparkles,

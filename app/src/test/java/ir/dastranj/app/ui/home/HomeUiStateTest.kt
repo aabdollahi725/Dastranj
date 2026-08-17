@@ -13,6 +13,7 @@ class HomeUiStateTest {
         title = "بانک ملت",
         maskedLabel = "•••• ۴۵۵۶",
         balanceText = "۸۴٬۲۰۰٬۰۰۰",
+        balanceToman = 84_200_000L,
         cardTheme = "white",
         contentDescription = "بانک ملت — ۸۴٬۲۰۰٬۰۰۰ تومان",
     )
