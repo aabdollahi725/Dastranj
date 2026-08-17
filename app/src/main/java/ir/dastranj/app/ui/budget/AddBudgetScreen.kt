@@ -24,11 +24,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -117,9 +117,9 @@ fun AddBudgetScreen(
                     onClick = viewModel::openCategorySheet,
                 )
 
-                ThresholdPicker(
+                ThresholdSlider(
                     selected = state.thresholdPercent,
-                    onSelect = viewModel::setThreshold,
+                    onSelect = viewModel::setThresholdFromSlider,
                 )
 
                 RepeatToggle(
@@ -284,55 +284,63 @@ private fun CategoryField(category: CategoryOption?, onClick: () -> Unit) {
     }
 }
 
-/** The design's 50–95 threshold range, as chips rather than a slider. */
+/**
+ * The warning-threshold slider — the design's `range` control, 50–95 in steps of 5.
+ *
+ * Configured with discrete stops rather than a free range: only the ten multiples of five are
+ * meaningful, and a slider that lands on 82 would put the budget bar's warning tick somewhere the
+ * design never draws it. The ViewModel snaps the reported value as well, so the stored threshold is
+ * always exactly one of the allowed options regardless of what the widget emits mid-drag.
+ *
+ * The current value is shown above the track, because a slider with no readout makes the user
+ * guess which stop they landed on.
+ */
 @Composable
-private fun ThresholdPicker(selected: Int, onSelect: (Int) -> Unit) {
+private fun ThresholdSlider(selected: Int, onSelect: (Float) -> Unit) {
+    val valueLabel = stringResource(
+        R.string.add_budget_percent,
+        PersianNumbers.toPersianDigits(selected.toString()),
+    )
+    val fieldLabel = stringResource(R.string.add_budget_threshold_label)
+
     Column {
-        Text(
-            text = stringResource(R.string.add_budget_threshold_label),
-            style = Dastranj.type.label,
-            color = Dastranj.colors.muted,
-            modifier = Modifier.padding(bottom = 8.dp, start = 2.dp),
-        )
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp, start = 2.dp, end = 2.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            AddBudgetUiState.THRESHOLD_OPTIONS.forEach { percent ->
-                val active = percent == selected
-                val label = stringResource(
-                    R.string.add_budget_percent,
-                    PersianNumbers.toPersianDigits(percent.toString()),
-                )
-                Box(
-                    modifier = Modifier
-                        .heightIn(min = 40.dp)
-                        .clip(CircleShape)
-                        .background(if (active) Dastranj.colors.brandTint else Dastranj.colors.card)
-                        .border(
-                            width = if (active) 2.dp else 1.dp,
-                            color = if (active) Dastranj.colors.brand else Dastranj.colors.hairline,
-                            shape = CircleShape,
-                        )
-                        .pressScaleClickable(
-                            onClick = { onSelect(percent) },
-                            role = androidx.compose.ui.semantics.Role.RadioButton,
-                        )
-                        .semantics(mergeDescendants = true) { contentDescription = label }
-                        .padding(horizontal = 14.dp),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = label,
-                        style = Dastranj.type.label,
-                        fontWeight = if (active) FontWeight.Bold else FontWeight.Medium,
-                        color = if (active) Dastranj.colors.title else Dastranj.colors.muted,
-                    )
-                }
-            }
+            Text(
+                text = fieldLabel,
+                style = Dastranj.type.label,
+                color = Dastranj.colors.muted,
+                modifier = Modifier.weight(1f),
+            )
+            Text(
+                text = valueLabel,
+                style = Dastranj.type.label,
+                fontWeight = FontWeight.Bold,
+                color = Dastranj.colors.title,
+            )
         }
+
+        Slider(
+            value = selected.toFloat(),
+            onValueChange = onSelect,
+            valueRange = AddBudgetUiState.THRESHOLD_MIN.toFloat()..
+                AddBudgetUiState.THRESHOLD_MAX.toFloat(),
+            steps = AddBudgetUiState.THRESHOLD_SLIDER_STEPS,
+            colors = SliderDefaults.colors(
+                thumbColor = Dastranj.colors.brand,
+                activeTrackColor = Dastranj.colors.brand,
+                inactiveTrackColor = Dastranj.colors.sunken,
+                activeTickColor = Ink0,
+                inactiveTickColor = Dastranj.colors.faint,
+            ),
+            // One node speaking «هشدار در، ۸۰٪», rather than an unlabelled slider reading a bare
+            // number.
+            modifier = Modifier.semantics(mergeDescendants = true) {
+                contentDescription = "$fieldLabel، $valueLabel"
+            },
+        )
     }
 }
 

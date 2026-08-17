@@ -176,4 +176,45 @@
     <string name="notification_budget_threshold_body">هزینه‌های «%1$s» به سقف بودجه نزدیک شده است.</string>
     <string name="notification_budget_exceeded_title">از سقف بودجه گذشتید</string>
     <string name="notification_budget_exceeded_body">هزینه‌های «%1$s» از سقف بودجهٔ این ماه بیشتر شده است.</string>
+
+    <!-- ==== Report insight card (Dastranj Report Screen.dc.html, revised formula) ====
+      The subject is composed first, then slotted into one of the six branch sentences.
+      Wording follows the design's `insightText`, adapted for the two agreed calculation changes:
+      the reference is the last *completed* month (so the month is named rather than called
+      «این ماه»), and a mean is only claimed when at least two months back it up.
+    -->
+    <string name="report_subject_all">مجموع هزینه‌های شما</string>
+    <string name="report_subject_category">هزینهٔ %1$s شما</string>
+
+    <!-- No data at all for the selected year. -->
+    <string name="report_insight_no_data">%1$s در این سال ثبت نشده است.</string>
+
+    <!-- Reference month exists, but fewer than two months behind it. -->
+    <string name="report_insight_bare_figure">%1$s در %2$s برابر %3$s تومان بوده است.</string>
+
+    <!-- History exists but is entirely zero. -->
+    <string name="report_insight_zero_baseline">%1$s پیش از %2$s صفر بوده است.</string>
+
+    <!-- Within 3% of the mean. -->
+    <string name="report_insight_level">%1$s در %2$s تقریباً هم‌اندازهٔ میانگین %3$s ماه گذشتهٔ شماست.</string>
+
+    <!-- Meaningfully above or below the mean. -->
+    <string name="report_insight_higher">%1$s در %2$s ⁨%3$s⁩٪ بیشتر از میانگین %4$s ماه گذشتهٔ شماست.</string>
+    <string name="report_insight_lower">%1$s در %2$s ⁨%3$s⁩٪ کمتر از میانگین %4$s ماه گذشتهٔ شماست.</string>
+
+    <!-- Past year: the lowest month is the useful fact. -->
+    <string name="report_insight_lowest">کمترین %1$s در %2$s بوده است.</string>
+
+    <!-- ==== Report screen chrome ==== -->
+    <string name="report_all_categories">همهٔ دسته‌ها</string>
+    <string name="report_prev_year">سال پیش</string>
+    <string name="report_next_year">سال بعد</string>
+    <string name="report_next_year_disabled">سال بعد — در دسترس نیست</string>
+    <string name="report_axis_millions">%1$s میلیون تومان</string>
+    <string name="report_axis_toman">%1$s تومان</string>
+    <string name="report_month_future">هنوز نرسیده است</string>
+    <string name="report_month_current">ماه جاری</string>
+    <!-- «مرداد — ۲٬۳۲۰٬۰۰۰ تومان» -->
+    <string name="report_month_a11y">%1$s — %2$s</string>
+    <string name="report_month_amount_a11y">%1$s تومان</string>
 </resources>

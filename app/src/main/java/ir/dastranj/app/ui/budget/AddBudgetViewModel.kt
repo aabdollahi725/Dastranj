@@ -50,7 +50,19 @@ data class AddBudgetUiState(
 
     companion object {
         /** The design's threshold slider runs 50–95 in steps of 5. */
-        val THRESHOLD_OPTIONS = (50..95 step 5).toList()
+        const val THRESHOLD_MIN = 50
+        const val THRESHOLD_MAX = 95
+        const val THRESHOLD_STEP = 5
+
+        /** The ten allowed values: 50, 55, … 95. */
+        val THRESHOLD_OPTIONS = (THRESHOLD_MIN..THRESHOLD_MAX step THRESHOLD_STEP).toList()
+
+        /**
+         * Intermediate stops for Compose's `Slider`, which counts the two endpoints separately.
+         * Ten allowed values means eight stops between them.
+         */
+        val THRESHOLD_SLIDER_STEPS = THRESHOLD_OPTIONS.size - 2
+
         const val MAX_AMOUNT_DIGITS = 12
     }
 }
@@ -109,7 +121,23 @@ class AddBudgetViewModel @Inject constructor(
         it.copy(amountToman = it.amountToman.dropLast(1))
     }
 
-    fun setThreshold(percent: Int) = _uiState.update { it.copy(thresholdPercent = percent) }
+    /**
+     * Snaps a raw slider position to the nearest allowed threshold.
+     *
+     * The slider reports a continuous Float even when configured with steps, and rounding it here
+     * rather than trusting the widget keeps the stored value exactly one of [THRESHOLD_OPTIONS] —
+     * a threshold of 82 would put the budget's warning tick somewhere the design never draws it.
+     */
+    fun setThresholdFromSlider(rawValue: Float) {
+        val snapped = AddBudgetUiState.THRESHOLD_OPTIONS.minBy { option ->
+            kotlin.math.abs(option - rawValue)
+        }
+        setThreshold(snapped)
+    }
+
+    fun setThreshold(percent: Int) = _uiState.update {
+        it.copy(thresholdPercent = percent.coerceIn(AddBudgetUiState.THRESHOLD_MIN, AddBudgetUiState.THRESHOLD_MAX))
+    }
 
     fun setAutoRepeat(enabled: Boolean) = _uiState.update { it.copy(autoRepeat = enabled) }
 
